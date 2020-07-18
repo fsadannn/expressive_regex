@@ -37,6 +37,17 @@ class StackFrame:
         self._quantifier = None
         self._type = cls
 
+    def get_instance(self):
+        return self._type(self._elements)
+
+    def get_qinstance(self, instance=None):
+        if instance:
+            return self._quantifier(instance)
+        return self._quantifier(self.get_instance())
+
+    def append(self, element):
+        self._elements.append(element)
+
     @property
     def elements(self):
         return self._elements
@@ -44,6 +55,10 @@ class StackFrame:
     @property
     def quantifier(self):
         return self._quantifier
+
+    @quantifier.setter
+    def quantifier(self, value):
+        self._quantifier = value
 
 
 

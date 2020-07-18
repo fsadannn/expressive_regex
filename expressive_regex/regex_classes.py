@@ -1,11 +1,13 @@
 import abc
 from typing import Union, Optional, List
 
+### Base
 class Base(metaclass=abc.ABCMeta):
     __slosts__= ()
-    @abc.abstractmethod
+    @abc.abstractproperty
     def value(self):
         raise NotImplementedError
+
 
 class BaseGroups(Base, metaclass=abc.ABCMeta):
 
@@ -17,18 +19,47 @@ class BaseGroups(Base, metaclass=abc.ABCMeta):
     def element(self, cls, elements):
         return cls(elements)
 
+class BaseQuantifier(BaseGroups, metaclass=abc.ABCMeta):
+
+    __slosts__ = ('_requiresGroup')
+    def __init__(self, elements, requiresGroup=False):
+        assert not (isinstance(elements, list) or isinstance(elements, tuple))
+        super().__init__(elements)
+        self._requiresGroup = requiresGroup
+
+    @property
+    def requiresGroup(self):
+        return self._requiresGroup
+
+    def _value(self):
+        inner = self._elements.value
+        grouping = f"(?:inner)" if self._requiresGroup else inner
+        return grouping
+
+### Grouping
 class Root(BaseGroups):
     __slosts__= ()
+    @property
     def value(self):
         pass
 
-class Group(BaseGroups):
+
+class Capture(BaseGroups):
     __slosts__= ()
+    @property
     def value(self):
-        pass
+        return "("+"".join((i.value for i in self._elements))+")"
+
+### Quatifier
+
+class OptionalQ(BaseQuantifier):
+    __slosts__= ()
+    @property
+    def value(self):
+        return self._value() + '?'
 
 
-
+### Other
 class Range(Base):
     __slosts__= ()
     def __init__(self, begin: Union[str,int], end: Union[str,int],
@@ -46,5 +77,6 @@ class Range(Base):
         self._end = end
         self._exclude = exclude
 
+    @property
     def value(self):
         pass
