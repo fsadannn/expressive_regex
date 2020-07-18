@@ -80,11 +80,8 @@ category = "dev"
 description = "Code coverage measurement for Python"
 name = "coverage"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
-version = "5.2"
-
-[package.extras]
-toml = ["toml"]
+python-versions = "*"
+version = "4.4.2"
 
 [[package]]
 category = "dev"
@@ -296,12 +293,11 @@ category = "dev"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 name = "urllib3"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
-version = "1.25.9"
+python-versions = "*"
+version = "1.22"
 
 [package.extras]
-brotli = ["brotlipy (>=0.6.0)"]
-secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "pyOpenSSL (>=0.14)", "ipaddress"]
+secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 
 [[package]]
@@ -334,8 +330,8 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "03368302f06e5582f82bed12dd999c6440f8f916d3fc507506af40c02c5037a9"
-python-versions = "^3.7.2"
+content-hash = "82081d814ab1bf580832e429207afddd0b536cd5812f667e8c23ec002374d04c"
+python-versions = ">=3.6.1"
 
 [metadata.files]
 astroid = [
@@ -368,40 +364,46 @@ colorama = [
     {file = "colorama-0.4.3.tar.gz", hash = "sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"},
 ]
 coverage = [
-    {file = "coverage-5.2-cp27-cp27m-macosx_10_13_intel.whl", hash = "sha256:d9ad0a988ae20face62520785ec3595a5e64f35a21762a57d115dae0b8fb894a"},
-    {file = "coverage-5.2-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:4bb385a747e6ae8a65290b3df60d6c8a692a5599dc66c9fa3520e667886f2e10"},
-    {file = "coverage-5.2-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:9702e2cb1c6dec01fb8e1a64c015817c0800a6eca287552c47a5ee0ebddccf62"},
-    {file = "coverage-5.2-cp27-cp27m-manylinux1_x86_64.whl", hash = "sha256:42fa45a29f1059eda4d3c7b509589cc0343cd6bbf083d6118216830cd1a51613"},
-    {file = "coverage-5.2-cp27-cp27m-win32.whl", hash = "sha256:41d88736c42f4a22c494c32cc48a05828236e37c991bd9760f8923415e3169e4"},
-    {file = "coverage-5.2-cp27-cp27m-win_amd64.whl", hash = "sha256:bbb387811f7a18bdc61a2ea3d102be0c7e239b0db9c83be7bfa50f095db5b92a"},
-    {file = "coverage-5.2-cp27-cp27mu-manylinux1_i686.whl", hash = "sha256:3740b796015b889e46c260ff18b84683fa2e30f0f75a171fb10d2bf9fb91fc70"},
-    {file = "coverage-5.2-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:ebf2431b2d457ae5217f3a1179533c456f3272ded16f8ed0b32961a6d90e38ee"},
-    {file = "coverage-5.2-cp35-cp35m-macosx_10_13_x86_64.whl", hash = "sha256:d54d7ea74cc00482a2410d63bf10aa34ebe1c49ac50779652106c867f9986d6b"},
-    {file = "coverage-5.2-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:87bdc8135b8ee739840eee19b184804e5d57f518578ffc797f5afa2c3c297913"},
-    {file = "coverage-5.2-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:ed9a21502e9223f563e071759f769c3d6a2e1ba5328c31e86830368e8d78bc9c"},
-    {file = "coverage-5.2-cp35-cp35m-win32.whl", hash = "sha256:509294f3e76d3f26b35083973fbc952e01e1727656d979b11182f273f08aa80b"},
-    {file = "coverage-5.2-cp35-cp35m-win_amd64.whl", hash = "sha256:ca63dae130a2e788f2b249200f01d7fa240f24da0596501d387a50e57aa7075e"},
-    {file = "coverage-5.2-cp36-cp36m-macosx_10_13_x86_64.whl", hash = "sha256:5c74c5b6045969b07c9fb36b665c9cac84d6c174a809fc1b21bdc06c7836d9a0"},
-    {file = "coverage-5.2-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:c32aa13cc3fe86b0f744dfe35a7f879ee33ac0a560684fef0f3e1580352b818f"},
-    {file = "coverage-5.2-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:1e58fca3d9ec1a423f1b7f2aa34af4f733cbfa9020c8fe39ca451b6071237405"},
-    {file = "coverage-5.2-cp36-cp36m-win32.whl", hash = "sha256:3b2c34690f613525672697910894b60d15800ac7e779fbd0fccf532486c1ba40"},
-    {file = "coverage-5.2-cp36-cp36m-win_amd64.whl", hash = "sha256:a4d511012beb967a39580ba7d2549edf1e6865a33e5fe51e4dce550522b3ac0e"},
-    {file = "coverage-5.2-cp37-cp37m-macosx_10_13_x86_64.whl", hash = "sha256:32ecee61a43be509b91a526819717d5e5650e009a8d5eda8631a59c721d5f3b6"},
-    {file = "coverage-5.2-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:6f91b4492c5cde83bfe462f5b2b997cdf96a138f7c58b1140f05de5751623cf1"},
-    {file = "coverage-5.2-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:bfcc811883699ed49afc58b1ed9f80428a18eb9166422bce3c31a53dba00fd1d"},
-    {file = "coverage-5.2-cp37-cp37m-win32.whl", hash = "sha256:60a3d36297b65c7f78329b80120f72947140f45b5c7a017ea730f9112b40f2ec"},
-    {file = "coverage-5.2-cp37-cp37m-win_amd64.whl", hash = "sha256:12eaccd86d9a373aea59869bc9cfa0ab6ba8b1477752110cb4c10d165474f703"},
-    {file = "coverage-5.2-cp38-cp38-macosx_10_13_x86_64.whl", hash = "sha256:d82db1b9a92cb5c67661ca6616bdca6ff931deceebb98eecbd328812dab52032"},
-    {file = "coverage-5.2-cp38-cp38-manylinux1_i686.whl", hash = "sha256:214eb2110217f2636a9329bc766507ab71a3a06a8ea30cdeebb47c24dce5972d"},
-    {file = "coverage-5.2-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:8a3decd12e7934d0254939e2bf434bf04a5890c5bf91a982685021786a08087e"},
-    {file = "coverage-5.2-cp38-cp38-win32.whl", hash = "sha256:1dcebae667b73fd4aa69237e6afb39abc2f27520f2358590c1b13dd90e32abe7"},
-    {file = "coverage-5.2-cp38-cp38-win_amd64.whl", hash = "sha256:f50632ef2d749f541ca8e6c07c9928a37f87505ce3a9f20c8446ad310f1aa87b"},
-    {file = "coverage-5.2-cp39-cp39-macosx_10_13_x86_64.whl", hash = "sha256:7403675df5e27745571aba1c957c7da2dacb537c21e14007ec3a417bf31f7f3d"},
-    {file = "coverage-5.2-cp39-cp39-manylinux1_i686.whl", hash = "sha256:0fc4e0d91350d6f43ef6a61f64a48e917637e1dcfcba4b4b7d543c628ef82c2d"},
-    {file = "coverage-5.2-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:25fe74b5b2f1b4abb11e103bb7984daca8f8292683957d0738cd692f6a7cc64c"},
-    {file = "coverage-5.2-cp39-cp39-win32.whl", hash = "sha256:d67599521dff98ec8c34cd9652cbcfe16ed076a2209625fca9dc7419b6370e5c"},
-    {file = "coverage-5.2-cp39-cp39-win_amd64.whl", hash = "sha256:10f2a618a6e75adf64329f828a6a5b40244c1c50f5ef4ce4109e904e69c71bd2"},
-    {file = "coverage-5.2.tar.gz", hash = "sha256:1874bdc943654ba46d28f179c1846f5710eda3aeb265ff029e0ac2b52daae404"},
+    {file = "coverage-4.4.2-cp26-cp26m-macosx_10_10_x86_64.whl", hash = "sha256:d1ee76f560c3c3e8faada866a07a32485445e16ed2206ac8378bd90dadffb9f0"},
+    {file = "coverage-4.4.2-cp26-cp26m-manylinux1_i686.whl", hash = "sha256:007eeef7e23f9473622f7d94a3e029a45d55a92a1f083f0f3512f5ab9a669b05"},
+    {file = "coverage-4.4.2-cp26-cp26m-manylinux1_x86_64.whl", hash = "sha256:17307429935f96c986a1b1674f78079528833410750321d22b5fb35d1883828e"},
+    {file = "coverage-4.4.2-cp26-cp26mu-manylinux1_i686.whl", hash = "sha256:845fddf89dca1e94abe168760a38271abfc2e31863fbb4ada7f9a99337d7c3dc"},
+    {file = "coverage-4.4.2-cp26-cp26mu-manylinux1_x86_64.whl", hash = "sha256:3f4d0b3403d3e110d2588c275540649b1841725f5a11a7162620224155d00ba2"},
+    {file = "coverage-4.4.2-cp27-cp27m-macosx_10_12_intel.whl", hash = "sha256:4c4f368ffe1c2e7602359c2c50233269f3abe1c48ca6b288dcd0fb1d1c679733"},
+    {file = "coverage-4.4.2-cp27-cp27m-macosx_10_12_x86_64.whl", hash = "sha256:f8c55dd0f56d3d618dfacf129e010cbe5d5f94b6951c1b2f13ab1a2f79c284da"},
+    {file = "coverage-4.4.2-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:cdd92dd9471e624cd1d8c1a2703d25f114b59b736b0f1f659a98414e535ffb3d"},
+    {file = "coverage-4.4.2-cp27-cp27m-manylinux1_x86_64.whl", hash = "sha256:2ad357d12971e77360034c1596011a03f50c0f9e1ecd12e081342b8d1aee2236"},
+    {file = "coverage-4.4.2-cp27-cp27m-win32.whl", hash = "sha256:700d7579995044dc724847560b78ac786f0ca292867447afda7727a6fbaa082e"},
+    {file = "coverage-4.4.2-cp27-cp27m-win_amd64.whl", hash = "sha256:66f393e10dd866be267deb3feca39babba08ae13763e0fc7a1063cbe1f8e49f6"},
+    {file = "coverage-4.4.2-cp27-cp27mu-manylinux1_i686.whl", hash = "sha256:e9a0e1caed2a52f15c96507ab78a48f346c05681a49c5b003172f8073da6aa6b"},
+    {file = "coverage-4.4.2-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:eea9135432428d3ca7ee9be86af27cb8e56243f73764a9b6c3e0bda1394916be"},
+    {file = "coverage-4.4.2-cp33-cp33m-macosx_10_10_x86_64.whl", hash = "sha256:5ff16548492e8a12e65ff3d55857ccd818584ed587a6c2898a9ebbe09a880674"},
+    {file = "coverage-4.4.2-cp33-cp33m-manylinux1_i686.whl", hash = "sha256:d00e29b78ff610d300b2c37049a41234d48ea4f2d2581759ebcf67caaf731c31"},
+    {file = "coverage-4.4.2-cp33-cp33m-manylinux1_x86_64.whl", hash = "sha256:87d942863fe74b1c3be83a045996addf1639218c2cb89c5da18c06c0fe3917ea"},
+    {file = "coverage-4.4.2-cp34-cp34m-macosx_10_10_x86_64.whl", hash = "sha256:358d635b1fc22a425444d52f26287ae5aea9e96e254ff3c59c407426f44574f4"},
+    {file = "coverage-4.4.2-cp34-cp34m-manylinux1_i686.whl", hash = "sha256:81912cfe276e0069dca99e1e4e6be7b06b5fc8342641c6b472cb2fed7de7ae18"},
+    {file = "coverage-4.4.2-cp34-cp34m-manylinux1_x86_64.whl", hash = "sha256:079248312838c4c8f3494934ab7382a42d42d5f365f0cf7516f938dbb3f53f3f"},
+    {file = "coverage-4.4.2-cp34-cp34m-win32.whl", hash = "sha256:b0059630ca5c6b297690a6bf57bf2fdac1395c24b7935fd73ee64190276b743b"},
+    {file = "coverage-4.4.2-cp34-cp34m-win_amd64.whl", hash = "sha256:493082f104b5ca920e97a485913de254cbe351900deed72d4264571c73464cd0"},
+    {file = "coverage-4.4.2-cp35-cp35m-macosx_10_10_x86_64.whl", hash = "sha256:e3ba9b14607c23623cf38f90b23f5bed4a3be87cbfa96e2e9f4eabb975d1e98b"},
+    {file = "coverage-4.4.2-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:82cbd3317320aa63c65555aa4894bf33a13fb3a77f079059eb5935eea415938d"},
+    {file = "coverage-4.4.2-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:9721f1b7275d3112dc7ccf63f0553c769f09b5c25a26ee45872c7f5c09edf6c1"},
+    {file = "coverage-4.4.2-cp35-cp35m-win32.whl", hash = "sha256:bd4800e32b4c8d99c3a2c943f1ac430cbf80658d884123d19639bcde90dad44a"},
+    {file = "coverage-4.4.2-cp35-cp35m-win_amd64.whl", hash = "sha256:f29841e865590af72c4b90d7b5b8e93fd560f5dea436c1d5ee8053788f9285de"},
+    {file = "coverage-4.4.2-cp36-cp36m-macosx_10_12_x86_64.whl", hash = "sha256:f3a5c6d054c531536a83521c00e5d4004f1e126e2e2556ce399bef4180fbe540"},
+    {file = "coverage-4.4.2-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:dd707a21332615108b736ef0b8513d3edaf12d2a7d5fc26cd04a169a8ae9b526"},
+    {file = "coverage-4.4.2-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:2e1a5c6adebb93c3b175103c2f855eda957283c10cf937d791d81bef8872d6ca"},
+    {file = "coverage-4.4.2-cp36-cp36m-win32.whl", hash = "sha256:f87f522bde5540d8a4b11df80058281ac38c44b13ce29ced1e294963dd51a8f8"},
+    {file = "coverage-4.4.2-cp36-cp36m-win_amd64.whl", hash = "sha256:a7cfaebd8f24c2b537fa6a271229b051cdac9c1734bb6f939ccfc7c055689baa"},
+    {file = "coverage-4.4.2.tar.gz", hash = "sha256:309d91bd7a35063ec7a0e4d75645488bfab3f0b66373e7722f23da7f5b0f34cc"},
+    {file = "coverage-4.4.2.win-amd64-py2.7.exe", hash = "sha256:b6cebae1502ce5b87d7c6f532fa90ab345cfbda62b95aeea4e431e164d498a3d"},
+    {file = "coverage-4.4.2.win-amd64-py3.4.exe", hash = "sha256:a4497faa4f1c0fc365ba05eaecfb6b5d24e3c8c72e95938f9524e29dadb15e76"},
+    {file = "coverage-4.4.2.win-amd64-py3.5.exe", hash = "sha256:2b4d7f03a8a6632598cbc5df15bbca9f778c43db7cf1a838f4fa2c8599a8691a"},
+    {file = "coverage-4.4.2.win-amd64-py3.6.exe", hash = "sha256:1afccd7e27cac1b9617be8c769f6d8a6d363699c9b86820f40c74cfb3328921c"},
+    {file = "coverage-4.4.2.win32-py2.7.exe", hash = "sha256:0388c12539372bb92d6dde68b4627f0300d948965bbb7fc104924d715fdc0965"},
+    {file = "coverage-4.4.2.win32-py3.4.exe", hash = "sha256:ab3508df9a92c1d3362343d235420d08e2662969b83134f8a97dc1451cbe5e84"},
+    {file = "coverage-4.4.2.win32-py3.5.exe", hash = "sha256:43a155eb76025c61fc20c3d03b89ca28efa6f5be572ab6110b2fb68eda96bfea"},
+    {file = "coverage-4.4.2.win32-py3.6.exe", hash = "sha256:f98b461cb59f117887aa634a66022c0bd394278245ed51189f63a036516e32de"},
 ]
 idna = [
     {file = "idna-2.10-py2.py3-none-any.whl", hash = "sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0"},
@@ -510,8 +512,8 @@ typed-ast = [
     {file = "typed_ast-1.4.1.tar.gz", hash = "sha256:8c8aaad94455178e3187ab22c8b01a3837f8ee50e09cf31f1ba129eb293ec30b"},
 ]
 urllib3 = [
-    {file = "urllib3-1.25.9-py2.py3-none-any.whl", hash = "sha256:88206b0eb87e6d677d424843ac5209e3fb9d0190d0ee169599165ec25e9d9115"},
-    {file = "urllib3-1.25.9.tar.gz", hash = "sha256:3018294ebefce6572a474f0604c2021e33b3fd8006ecd11d62107a5d2a963527"},
+    {file = "urllib3-1.22-py2.py3-none-any.whl", hash = "sha256:06330f386d6e4b195fbfc736b297f58c5a892e4440e54d294d7004e3a9bbea1b"},
+    {file = "urllib3-1.22.tar.gz", hash = "sha256:cc44da8e1145637334317feebd728bd869a35285b93cbb4cca2577da7e62db4f"},
 ]
 wcwidth = [
     {file = "wcwidth-0.2.5-py2.py3-none-any.whl", hash = "sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784"},

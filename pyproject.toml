@@ -7,7 +7,7 @@ license = "MIT"
 readme = "Readme.md"
 
 [tool.poetry.dependencies]
-python = "^3.7.2"
+python = ">=3.6.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.4.3"
