@@ -2,18 +2,19 @@
 
 class Stack:
     __slots__ = ('_stack')
+
     def __init__(self):
-        self._stack=[]
+        self._stack = []
 
     def __len__(self):
         return len(self._stack)
 
     @property
     def empty(self):
-        return len(self._stack)==0
+        return len(self._stack) == 0
 
     def isempty(self):
-        return len(self._stack)==0
+        return len(self._stack) == 0
 
     def top(self):
         if len(self._stack)==0:

@@ -198,6 +198,14 @@ toml = ">=0.7.1"
 
 [[package]]
 category = "dev"
+description = "Exit code handler for pylint command line utility."
+name = "pylint-exit"
+optional = false
+python-versions = "*"
+version = "1.2.0"
+
+[[package]]
+category = "dev"
 description = "Python parsing module"
 name = "pyparsing"
 optional = false
@@ -330,7 +338,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "82081d814ab1bf580832e429207afddd0b536cd5812f667e8c23ec002374d04c"
+content-hash = "6a5be7b4e9d1862876b46c623ba906f64102305bd02787e9081e578c41f0ec0d"
 python-versions = ">=3.6.1"
 
 [metadata.files]
@@ -463,6 +471,10 @@ py = [
 pylint = [
     {file = "pylint-2.5.3-py3-none-any.whl", hash = "sha256:d0ece7d223fe422088b0e8f13fa0a1e8eb745ebffcb8ed53d3e95394b6101a1c"},
     {file = "pylint-2.5.3.tar.gz", hash = "sha256:7dd78437f2d8d019717dbf287772d0b2dbdfd13fc016aa7faa08d67bccc46adc"},
+]
+pylint-exit = [
+    {file = "pylint-exit-1.2.0.zip", hash = "sha256:b6ad02884c01c5560a5275079fe5a6c792afff90ecccf0c02513e1547ee280b0"},
+    {file = "pylint_exit-1.2.0-py2.py3-none-any.whl", hash = "sha256:65c9e7856e9058705a92d7c45628d604b2a4b8ee2b3c18a7303be77f9ed87cbe"},
 ]
 pyparsing = [
     {file = "pyparsing-2.4.7-py2.py3-none-any.whl", hash = "sha256:ef9d7589ef3c200abe66653d3f1ab1033c3c419ae9b9bdb1240a85b024efc88b"},

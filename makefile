@@ -11,6 +11,10 @@ install:
 install-packages:
 	poetry install
 
+.PHONY: install-packages
+update:
+	poetry update
+
 .PHONY: lock
 lock:
 	poetry lock
@@ -25,11 +29,11 @@ clean:
 
 .PHONY: lint
 lint:
-	poetry run pylint ${PROJECT}
+	poetry run pylint ${PROJECT} -f colorized || poetry run pylint-exit $$?
 
 .PHONY: test-full
 test-full:
-	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml --cov-report=term-missing -v
+	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml
 
 .PHONY: cov
 cov:
@@ -56,7 +60,7 @@ dev-install:
 
 .PHONY: dev-test
 dev-test:
-	poetry run pylint ${PROJECT}
+	python -m pylint ${PROJECT} -f colorized || python -m pylint_exit $$?
 	python -m pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml -v
 
 .PHONY: dev-cov

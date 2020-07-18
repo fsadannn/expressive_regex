@@ -33,7 +33,7 @@ class BaseQuantifier(BaseGroups, metaclass=abc.ABCMeta):
 
     def _value(self):
         inner = self._elements.value
-        grouping = f"(?:inner)" if self._requiresGroup else inner
+        grouping = f"(?:{inner})" if self._requiresGroup else inner
         return grouping
 
 ### Grouping
