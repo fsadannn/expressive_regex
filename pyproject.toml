@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "my-package"
+version = "0.1.0"
+description = ""
+authors = ["fsadannn <fsadannn@gmail.com>"]
+license = "MIT"
+readme = "Readme.md"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.3.2"
+codecov = "^2.1.8"
+pytest-cov = "^2.8.1"
+pylint = "^2.4.4"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

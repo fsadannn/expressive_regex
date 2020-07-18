@@ -1,0 +1,31 @@
+language: python
+
+cache: pip
+
+python:
+  - 3.6
+  - 3.7
+  - 3.8
+
+install: make dev-install
+script: make dev-test
+after_success: make dev-cov
+
+before_deploy:
+  - poetry config repositories.testpypi https://test.pypi.org/legacy/
+  - poetry config http-basic.testpypi $TEST_PYPI_USER $TEST_PYPI_PASSWORD
+  - poetry config http-basic.pypi $PYPI_USER $PYPI_PASSWORD
+  - poetry build
+
+deploy:
+  - provider: script
+    script: poetry publish
+    skip_cleanup: true
+    on:
+      tags: true
+
+  # - provider: script
+  #   script: poetry publish -r testpypi
+  #   skip_cleanup: true
+  #   on:
+  #     branch: develop
