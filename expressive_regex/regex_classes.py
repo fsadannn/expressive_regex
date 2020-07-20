@@ -1,13 +1,14 @@
 import abc
 from typing import Union, Optional, List
 
+specialChars = ['\\', '.', '^', '$', '|', '?', '*', '+', '(', ')', '[', ']', '{', '}', '-']
+
 ### Base
 class Base(metaclass=abc.ABCMeta):
     __slosts__= ()
     @abc.abstractproperty
     def value(self):
         raise NotImplementedError
-
 
 class BaseGroups(Base, metaclass=abc.ABCMeta):
 
@@ -41,8 +42,7 @@ class Root(BaseGroups):
     __slosts__= ()
     @property
     def value(self):
-        pass
-
+        return "".join((i.value for i in self._elements))
 
 class Capture(BaseGroups):
     __slosts__= ()
@@ -51,7 +51,6 @@ class Capture(BaseGroups):
         return "("+"".join((i.value for i in self._elements))+")"
 
 ### Quatifier
-
 class OptionalQ(BaseQuantifier):
     __slosts__= ()
     @property
@@ -60,6 +59,7 @@ class OptionalQ(BaseQuantifier):
 
 
 ### Other
+
 class Range(Base):
     __slosts__= ()
     def __init__(self, begin: Union[str,int], end: Union[str,int],
@@ -80,3 +80,53 @@ class Range(Base):
     @property
     def value(self):
         pass
+
+ ### Match Element
+class anyChar(Base):
+    __slosts__= ()
+
+    @property
+    def value(self):
+        return '.'
+
+class whitespaceChar(Base):
+    __slosts__= ()
+
+    @property
+    def value(self):
+        return '\\s'
+
+class nonWhitespaceChar(Base):
+    __slosts__= ()
+
+    @property
+    def value(self):
+        return '\\S'
+
+class Digit(Base):
+    __slosts__= ()
+
+    @property
+    def value(self):
+        return '\\d'
+
+class nonDigit(Base):
+    __slosts__= ()
+
+    @property
+    def value(self):
+        return '\\D'
+
+class Word(Base):
+    __slosts__= ()
+
+    @property
+    def value(self):
+        return '\\w'
+
+class nonWord(Base):
+    __slosts__= ()
+
+    @property
+    def value(self):
+        return '\\W'
