@@ -6,6 +6,11 @@ class Stack:
     def __init__(self):
         self._stack = []
 
+    def copy(self):
+        res = Stack()
+        res._stack = self._stack[:]
+        return res
+
     def __len__(self):
         return len(self._stack)
 

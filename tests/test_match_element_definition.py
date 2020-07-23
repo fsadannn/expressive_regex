@@ -10,3 +10,39 @@ def test_anyChar():
     .anyChar\
     .toRegexString()
     assert res=='.'
+
+def test_whitespaceChar():
+    res=ExpressiveRegex()\
+    .whitespaceChar\
+    .toRegexString()
+    assert res=='\\s'
+
+def test_nonWhitespaceChar():
+    res=ExpressiveRegex()\
+    .nonWhitespaceChar\
+    .toRegexString()
+    assert res=='\\S'
+
+def test_digit():
+    res=ExpressiveRegex()\
+    .digit\
+    .toRegexString()
+    assert res=='\\d'
+
+def test_nonDigit():
+    res=ExpressiveRegex()\
+    .nonDigit\
+    .toRegexString()
+    assert res=='\\D'
+
+def test_word():
+    res=ExpressiveRegex()\
+    .word\
+    .toRegexString()
+    assert res=='\\w'
+
+def test_nonWord():
+    res=ExpressiveRegex()\
+    .nonWord\
+    .toRegexString()
+    assert res=='\\W'

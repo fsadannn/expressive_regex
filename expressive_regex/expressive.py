@@ -1,4 +1,5 @@
 import re
+import copy
 from typing import Union, Optional, List
 from .aux_classes import Stack, StackFrame
 ### Grouping
@@ -18,7 +19,7 @@ class BadStatement(Exception): pass
 class ExpressiveRegex:
     # TODO: write as inmutable object, return a copy of the class instead the intance in each method
     __slosts__ = ('_expression', '_hasDefineStart', '_hasDefineEnd', '_flags', '_stack')
-    def __init__(self, ):
+    def __init__(self, mutable=True):
         self._expression = ""
         self._hasDefineStart = False
         self._hasDefineEnd = False
@@ -29,6 +30,11 @@ class ExpressiveRegex:
         }
         self._stack = Stack()
         self._stack.push(StackFrame(Root))
+        self._mutable = mutable
+
+    @property
+    def mutable(self):
+        return self._mutable
 
     @property
     def _currentFrame(self):
@@ -48,54 +54,73 @@ class ExpressiveRegex:
         self._currentFrame.elements.append(wrap)
         return self
 
+    def _instance(self):
+        if self._mutable:
+            return self
+        return copy.deepcopy(self)
+
     ### Quantifiers
 
     @property
     def optional(self):
-        self._currentFrame.quantifier = OptionalQ
-        return self
+        instance = self._instance()
+        instance._currentFrame.quantifier = OptionalQ
+        return instance
 
     ### Grouping
 
     def end(self):
         if len(self._stack) == 1:
             raise BadStatement("Cannot call end while building the root expression.")
-        frame = self._stack.pop()
-        wrap = self._applyQuatifier(frame.get_instance())
-        self._currentFrame.append(wrap)
-        return self
+        instance = self._instance()
+        frame = instance._stack.pop()
+        wrap = instance._applyQuatifier(frame.get_instance())
+        instance._currentFrame.append(wrap)
+        return instance
 
     @property
     def capture(self):
+        instance = self._instance()
         newFrame = StackFrame(Capture)
-        self._stack.push(newFrame)
-        return self
+        instance._stack.push(newFrame)
+        return instance
 
     ### Match Element
 
     @property
     def anyChar(self):
-        return self._matchElement(anyChar)
+        instance = self._instance()
+        return instance._matchElement(anyChar)
+
+    @property
+    def whitespaceChar(self):
+        instance = self._instance()
+        return instance._matchElement(whitespaceChar)
 
     @property
     def nonWhitespaceChar(self):
-        return self._matchElement(nonWhitespaceChar)
+        instance = self._instance()
+        return instance._matchElement(nonWhitespaceChar)
 
     @property
     def digit(self):
-        return self._matchElement(Digit)
+        instance = self._instance()
+        return instance._matchElement(Digit)
 
     @property
     def nonDigit(self):
-        return self._matchElement(nonDigit)
+        instance = self._instance()
+        return instance._matchElement(nonDigit)
 
     @property
     def word(self):
-        return self._matchElement(Word)
+        instance = self._instance()
+        return instance._matchElement(Word)
 
     @property
     def nonWord(self):
-        return self._matchElement(nonWord)
+        instance = self._instance()
+        return instance._matchElement(nonWord)
 
     ### Other
 

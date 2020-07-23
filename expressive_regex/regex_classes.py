@@ -1,5 +1,6 @@
 import abc
 from typing import Union, Optional, List
+import copy
 
 specialChars = ['\\', '.', '^', '$', '|', '?', '*', '+', '(', ')', '[', ']', '{', '}', '-']
 
@@ -10,6 +11,9 @@ class Base(metaclass=abc.ABCMeta):
     def value(self):
         raise NotImplementedError
 
+    def copy(self):
+        return copy.deepcopy(self)
+
 class BaseGroups(Base, metaclass=abc.ABCMeta):
 
     __slosts__ = ('_elements')
@@ -17,15 +21,16 @@ class BaseGroups(Base, metaclass=abc.ABCMeta):
         self._elements = elements
 
     @classmethod
-    def element(self, cls, elements):
+    def element(cls, elements):
         return cls(elements)
+
 
 class BaseQuantifier(BaseGroups, metaclass=abc.ABCMeta):
 
     __slosts__ = ('_requiresGroup')
-    def __init__(self, elements, requiresGroup=False):
-        assert not (isinstance(elements, list) or isinstance(elements, tuple))
-        super().__init__(elements)
+    def __init__(self, element, requiresGroup=False):
+        assert not (isinstance(element, list) or isinstance(element, tuple))
+        super().__init__(element)
         self._requiresGroup = requiresGroup
 
     @property
