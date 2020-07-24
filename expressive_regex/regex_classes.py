@@ -15,7 +15,7 @@ def scape_special(values):
     return nvalues
 
 ### Base
-class Base(metaclass=abc.ABCMeta):
+class Base(metaclass=abc.ABCMeta): # pragma: no cover
     __slosts__= ()
     @abc.abstractproperty
     def value(self):
@@ -24,7 +24,7 @@ class Base(metaclass=abc.ABCMeta):
     def copy(self):
         return copy.deepcopy(self)
 
-class BaseGroups(Base, metaclass=abc.ABCMeta):
+class BaseGroups(Base, metaclass=abc.ABCMeta): # pragma: no cover
 
     __slosts__ = ('_elements')
     def __init__(self, elements):
@@ -35,7 +35,7 @@ class BaseGroups(Base, metaclass=abc.ABCMeta):
         return cls(elements)
 
 
-class BaseQuantifier(BaseGroups, metaclass=abc.ABCMeta):
+class BaseQuantifier(BaseGroups, metaclass=abc.ABCMeta): # pragma: no cover
 
     __slosts__ = ('_requiresGroup')
     def __init__(self, element, requiresGroup=False):

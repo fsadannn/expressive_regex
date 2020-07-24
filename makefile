@@ -33,7 +33,11 @@ lint:
 
 .PHONY: test-full
 test-full:
-	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml
+	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml --cov-config=.coveragerc
+
+.PHONY: coverage
+coverage:
+	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-config=.coveragerc --cov-report=html
 
 .PHONY: cov
 cov:
@@ -61,7 +65,7 @@ dev-install:
 .PHONY: dev-test
 dev-test:
 	python -m pylint ${PROJECT} -f colorized || python -m pylint_exit $$?
-	python -m pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml -v
+	python -m pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml --cov-config=.coveragerc -v
 
 .PHONY: dev-cov
 dev-cov:

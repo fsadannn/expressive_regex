@@ -1,7 +1,8 @@
-import string
 from expressive_regex import ExpressiveRegex
 from expressive_regex.regex_classes import specialChars
 from expressive_regex import __version__
+import string
+import random
 
 
 def test_version():
@@ -77,3 +78,24 @@ def test_char_and_rawChar():
         .rawChar(i)\
         .toRegexString()
         assert res==i
+
+def test_string_and_rawString():
+    expression = "".join(random.choices(string.ascii_letters, k=random.randint(1,len(string.ascii_letters))))
+    res=ExpressiveRegex()\
+        .string(expression)\
+        .toRegexString()
+    assert res==expression
+    res=ExpressiveRegex()\
+        .rawString(expression)\
+        .toRegexString()
+    assert res==expression
+    expression = "".join(random.choices(specialChars, k=random.randint(1,len(specialChars))))
+    fix_expression = "".join(('\\'+i for i in expression))
+    res=ExpressiveRegex()\
+        .string(expression)\
+        .toRegexString()
+    assert res==fix_expression
+    res=ExpressiveRegex()\
+        .rawString(expression)\
+        .toRegexString()
+    assert res==expression

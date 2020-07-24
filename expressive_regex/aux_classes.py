@@ -1,6 +1,6 @@
 
 
-class Stack:
+class Stack: # pragma: no cover
     __slots__ = ('_stack')
 
     def __init__(self):
@@ -36,7 +36,7 @@ class Stack:
         return val
 
 
-class StackFrame:
+class StackFrame: # pragma: no cover
     __slots__ = ('_elements', '_quantifier', '_type')
     def __init__(self, cls):
         self._elements = []

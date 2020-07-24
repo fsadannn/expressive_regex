@@ -38,10 +38,10 @@ class ExpressiveRegex:
         return self._mutable
 
     @property
-    def _currentFrame(self):
+    def _currentFrame(self): # pragma: no cover
         return self._stack.top()
 
-    def _applyQuatifier(self, element):
+    def _applyQuatifier(self, element): # pragma: no cover
         if self._currentFrame.quantifier:
             wrap = self._currentFrame.get_qinstance(element)
             self._currentFrame.quantifier = None
@@ -49,13 +49,13 @@ class ExpressiveRegex:
             wrap = element
         return wrap
 
-    def _matchElement(self, cls, *args, **kwargs):
+    def _matchElement(self, cls, *args, **kwargs): # pragma: no cover
         element = cls(*args, **kwargs)
         wrap = self._applyQuatifier(element)
         self._currentFrame.elements.append(wrap)
         return self
 
-    def _instance(self):
+    def _instance(self): # pragma: no cover
         if self._mutable:
             return self
         return copy.deepcopy(self)
