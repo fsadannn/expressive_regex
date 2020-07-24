@@ -58,7 +58,9 @@ class ExpressiveRegex:
     def _instance(self): # pragma: no cover
         if self._mutable:
             return self
-        return copy.deepcopy(self)
+        obj = copy.deepcopy(self)
+        obj._expression = ""
+        return obj
 
     ### Quantifiers
 
@@ -153,6 +155,10 @@ class ExpressiveRegex:
         txt = 'Cannot compute the value of a not yet fully specified regex object.\n'
         txt += f'(Try adding a .end() call to match the "{str(self._currentFrame._type)}")\n'
         assert len(self._stack) == 1, txt
-        return self._currentFrame.get_instance().value
+        if not self._mutable and self._expression:
+            return self._expression
+        exp = self._currentFrame.get_instance().value
+        self._expression = exp
+        return exp
 
 
