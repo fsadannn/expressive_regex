@@ -1,4 +1,6 @@
+import string
 from expressive_regex import ExpressiveRegex
+from expressive_regex.regex_classes import specialChars
 from expressive_regex import __version__
 
 
@@ -46,3 +48,32 @@ def test_nonWord():
     .nonWord\
     .toRegexString()
     assert res=='\\W'
+
+def test_char_and_rawChar():
+    for i in string.ascii_letters:
+        res=ExpressiveRegex()\
+        .char(i)\
+        .toRegexString()
+        assert res==i
+        res=ExpressiveRegex()\
+        .rawChar(i)\
+        .toRegexString()
+        assert res==i
+    for i in string.digits:
+        res=ExpressiveRegex()\
+        .char(i)\
+        .toRegexString()
+        assert res==i
+        res=ExpressiveRegex()\
+        .rawChar(i)\
+        .toRegexString()
+        assert res==i
+    for i in specialChars:
+        res=ExpressiveRegex()\
+        .char(i)\
+        .toRegexString()
+        assert res=='\\'+i
+        res=ExpressiveRegex()\
+        .rawChar(i)\
+        .toRegexString()
+        assert res==i

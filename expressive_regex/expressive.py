@@ -13,6 +13,7 @@ from .regex_classes import Range
 from .regex_classes import anyChar, whitespaceChar
 from .regex_classes import nonWhitespaceChar, Digit
 from .regex_classes import nonDigit, Word, nonWord
+from .regex_classes import Char, rawChar, String, rawString
 
 class BadStatement(Exception): pass
 
@@ -48,8 +49,8 @@ class ExpressiveRegex:
             wrap = element
         return wrap
 
-    def _matchElement(self, cls):
-        element = cls()
+    def _matchElement(self, cls, *args, **kwargs):
+        element = cls(*args, **kwargs)
         wrap = self._applyQuatifier(element)
         self._currentFrame.elements.append(wrap)
         return self
@@ -121,6 +122,22 @@ class ExpressiveRegex:
     def nonWord(self):
         instance = self._instance()
         return instance._matchElement(nonWord)
+
+    def char(self, value):
+        instance = self._instance()
+        return instance._matchElement(Char, value)
+
+    def rawChar(self, value):
+        instance = self._instance()
+        return instance._matchElement(rawChar, value)
+
+    def string(self, value):
+        instance = self._instance()
+        return instance._matchElement(String, value)
+
+    def rawString(self, value):
+        instance = self._instance()
+        return instance._matchElement(rawString, value)
 
     ### Other
 

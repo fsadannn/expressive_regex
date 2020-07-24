@@ -3,6 +3,16 @@ from typing import Union, Optional, List
 import copy
 
 specialChars = ['\\', '.', '^', '$', '|', '?', '*', '+', '(', ')', '[', ']', '{', '}', '-']
+specialCharsd = {i:'\\'+i for i in specialChars}
+
+def scape_special(values):
+    nvalues = ""
+    for i in values:
+        if i in specialCharsd:
+            nvalues+=specialCharsd[i]
+        else:
+            nvalues+=i
+    return nvalues
 
 ### Base
 class Base(metaclass=abc.ABCMeta):
@@ -135,3 +145,43 @@ class nonWord(Base):
     @property
     def value(self):
         return '\\W'
+
+class Char(Base):
+    __slosts__= ()
+    def __init__(self, value):
+        assert isinstance(value, str) and len(value)==1
+        self._value = scape_special(value)
+
+    @property
+    def value(self):
+        return self._value
+
+class rawChar(Base):
+    __slosts__= ()
+    def __init__(self, value):
+        assert isinstance(value, str) and len(value)==1
+        self._value = value
+
+    @property
+    def value(self):
+        return self._value
+
+class String(Base):
+    __slosts__= ()
+    def __init__(self, values):
+        assert isinstance(values, str)
+        self._values = scape_special(values)
+
+    @property
+    def value(self):
+        return self._values
+
+class rawString(Base):
+    __slosts__= ()
+    def __init__(self, values):
+        assert isinstance(values, str)
+        self._values = values
+
+    @property
+    def value(self):
+        return self._values
