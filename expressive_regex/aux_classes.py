@@ -1,14 +1,14 @@
-
+import copy
 
 class Stack: # pragma: no cover
-    __slots__ = ('_stack')
+    __slots__ = tuple(['_stack'])
 
     def __init__(self):
         self._stack = []
 
     def copy(self):
         res = Stack()
-        res._stack = self._stack[:]
+        res._stack = copy.deepcopy(self._stack)
         return res
 
     def __len__(self):
@@ -22,7 +22,7 @@ class Stack: # pragma: no cover
         return len(self._stack) == 0
 
     def top(self):
-        if len(self._stack)==0:
+        if len(self._stack) == 0:
             raise IndexError('pop from empty Stack')
         return self._stack[-1]
 
@@ -30,7 +30,7 @@ class Stack: # pragma: no cover
         self._stack.append(value)
 
     def pop(self):
-        if len(self._stack)==0:
+        if len(self._stack) == 0:
             raise IndexError('pop from empty Stack')
         val = self._stack.pop()
         return val
@@ -65,6 +65,3 @@ class StackFrame: # pragma: no cover
     @quantifier.setter
     def quantifier(self, value):
         self._quantifier = value
-
-
-

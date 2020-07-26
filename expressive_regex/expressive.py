@@ -6,19 +6,23 @@ from .aux_classes import Stack, StackFrame
 from .regex_classes import Capture
 ### Quatifiers
 from .regex_classes import OptionalQ
+from .regex_classes import zeroOrMore, zeroOrMoreLazy
+from .regex_classes import oneOrMore, oneOrMoreLazy
 ### Others
 from .regex_classes import Root
-from .regex_classes import Range
-### Match Element
+### Literals
 from .regex_classes import anyChar, whitespaceChar
 from .regex_classes import nonWhitespaceChar, Digit
-from .regex_classes import nonDigit, Word, nonWord
+from .regex_classes import nonDigit, Alphanum, nonAlphanum
 from .regex_classes import Char, rawChar, String, rawString
+from .regex_classes import Newline, carriageReturn, Tab, Space
+from .regex_classes import Range, anythingButRange
+from .regex_classes import anyOfChars, anythingButChars
 
-class BadStatement(Exception): pass
+class BadStatement(Exception):
+    pass
 
 class ExpressiveRegex:
-    # TODO: write as inmutable object, return a copy of the class instead the intance in each method
     __slosts__ = ('_expression', '_hasDefineStart', '_hasDefineEnd', '_flags', '_stack')
     def __init__(self, mutable=True):
         self._expression = ""
@@ -62,13 +66,34 @@ class ExpressiveRegex:
         obj._expression = ""
         return obj
 
+    def _quantifier(self, qclass):
+        if self._currentFrame.quantifier is not None:
+            raise BadStatement(f'cannot quantify regular expression with "{str(qclass)}" because it\'s already being quantified with "{self._currentFrame.quantifier}"')
+        instance = self._instance()
+        instance._currentFrame.quantifier = qclass
+        return instance
+
     ### Quantifiers
 
     @property
     def optional(self):
-        instance = self._instance()
-        instance._currentFrame.quantifier = OptionalQ
-        return instance
+        return self._quantifier(OptionalQ)
+
+    @property
+    def zeroOrMore(self):
+        return self._quantifier(zeroOrMore)
+
+    @property
+    def zeroOrMoreLazy(self):
+        return self._quantifier(zeroOrMoreLazy)
+
+    @property
+    def oneOrMore(self):
+        return self._quantifier(oneOrMore)
+
+    @property
+    def oneOrMoreLazy(self):
+        return self._quantifier(oneOrMoreLazy)
 
     ### Grouping
 
@@ -88,7 +113,7 @@ class ExpressiveRegex:
         instance._stack.push(newFrame)
         return instance
 
-    ### Match Element
+    ### Literals
 
     @property
     def anyChar(self):
@@ -116,14 +141,35 @@ class ExpressiveRegex:
         return instance._matchElement(nonDigit)
 
     @property
-    def word(self):
+    def alphanum(self):
         instance = self._instance()
-        return instance._matchElement(Word)
+        return instance._matchElement(Alphanum)
 
     @property
-    def nonWord(self):
+    def nonAlphanum(self):
         instance = self._instance()
-        return instance._matchElement(nonWord)
+        return instance._matchElement(nonAlphanum)
+
+    @property
+    def newline(self):
+        instance = self._instance()
+        return instance._matchElement(Newline)
+
+    @property
+    def carriageReturn(self):
+        instance = self._instance()
+        return instance._matchElement(carriageReturn)
+
+    @property
+    def tab(self):
+        instance = self._instance()
+        return instance._matchElement(Tab)
+
+    @property
+    def space(self):
+        instance = self._instance()
+        return instance._matchElement(Space)
+
 
     def char(self, value):
         instance = self._instance()
@@ -141,17 +187,28 @@ class ExpressiveRegex:
         instance = self._instance()
         return instance._matchElement(rawString, value)
 
-    ### Other
+    def range(self, begin: Union[str, int], end: Union[str, int],
+              exclude: Optional[Union[List[Union[str, int]], str]]=None):
+        instance = self._instance()
+        return instance._matchElement(Range, begin, end, exclude)
 
-    # def range(self, begin: Union[str,int], end: Union[str,int],
-    #         exclude: Optional[Union[List[Union[str,int]], str]]=None):
-    #     element = Range(begin, end, exclude)
-    #     self._currentFrame.elements.append(element)
-    #     return self
+    def anythingButRange(self, begin: Union[str, int], end: Union[str, int],
+                         exclude: Optional[Union[List[Union[str, int]], str]]=None):
+        instance = self._instance()
+        return instance._matchElement(anythingButRange, begin, end, exclude)
+
+    def anyOfChars(self, value):
+        instance = self._instance()
+        return instance._matchElement(anyOfChars, value)
+
+    def anythingButChars(self, value):
+        instance = self._instance()
+        return instance._matchElement(anythingButChars, value)
+
 
     ### Build Expression
 
-    def toRegexString(self):
+    def toRegexString(self)->String:
         txt = 'Cannot compute the value of a not yet fully specified regex object.\n'
         txt += f'(Try adding a .end() call to match the "{str(self._currentFrame._type)}")\n'
         assert len(self._stack) == 1, txt
@@ -161,4 +218,6 @@ class ExpressiveRegex:
         self._expression = exp
         return exp
 
-
+    def toRegex(self)->re.Pattern:
+        exp = self.toRegexString()
+        return re.compile(exp)

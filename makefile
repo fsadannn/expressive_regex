@@ -29,15 +29,15 @@ clean:
 
 .PHONY: lint
 lint:
-	poetry run pylint ${PROJECT} -f colorized || poetry run pylint-exit $$?
+	poetry run pylint ${PROJECT} -f colorized -d missing-module-docstring,missing-class-docstring,missing-function-docstring,invalid-name || poetry run pylint-exit $$?
 
 .PHONY: test-full
 test-full:
-	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml --cov-config=.coveragerc
+	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml --cov-config=.coveragerc -v
 
 .PHONY: coverage
 coverage:
-	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-config=.coveragerc --cov-report=html
+	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-config=.coveragerc --cov-report=html -v
 
 .PHONY: cov
 cov:
@@ -64,7 +64,7 @@ dev-install:
 
 .PHONY: dev-test
 dev-test:
-	python -m pylint ${PROJECT} -f colorized || python -m pylint_exit $$?
+	python -m pylint ${PROJECT} -f colorized -d missing-module-docstring,missing-class-docstring,missing-function-docstring,invalid-name || python -m pylint_exit $$?
 	python -m pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml --cov-config=.coveragerc -v
 
 .PHONY: dev-cov
