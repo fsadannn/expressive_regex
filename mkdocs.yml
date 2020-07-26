@@ -1,0 +1,17 @@
+site_name: Expressive Regex
+repo_name: 'fsadannn/expressive_regex'
+repo_url: 'https://github.com/fsadannn/expressive_regex'
+
+theme:
+    name: material
+    feature:
+        tabs: true
+
+markdown_extensions:
+    - codehilite
+    - toc:
+        permalink: true
+    - admonition
+
+nav:
+    - Home: index.md

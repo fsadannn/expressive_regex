@@ -53,6 +53,12 @@ publish-token:
 	poetry config pypi-token.pypi ${POETRY_PYPI_TOKEN_PYPI}
 	poetry publish
 
+docs-serve:
+	poetry run mkdocs serve && cp docs/index.md Readme.md --update
+
+docs-deploy:
+	poetry run mkdocs gh-deploy && cp docs/index.md Readme.md --update
+
 # Below are the commands that will be run INSIDE the development environment, i.e., inside Docker or Travis
 # These commands are NOT supposed to be run by the developer directly, and will fail to do so.
 
