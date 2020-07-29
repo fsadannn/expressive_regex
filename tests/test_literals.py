@@ -38,15 +38,15 @@ def test_nonDigit():
     .toRegexString()
     assert res=='\\D'
 
-def test_alphanum():
+def test_word():
     res=ExpressiveRegex()\
-    .alphanum\
+    .word\
     .toRegexString()
     assert res=='\\w'
 
-def test_nonAlphanum():
+def test_nonWord():
     res=ExpressiveRegex()\
-    .nonAlphanum\
+    .nonWord\
     .toRegexString()
     assert res=='\\W'
 

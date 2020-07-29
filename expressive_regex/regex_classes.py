@@ -130,13 +130,13 @@ class nonDigit(Base):
     def value(self):
         return '\\D'
 
-class Alphanum(Base):
+class Word(Base):
     __slosts__ = ()
     @property
     def value(self):
         return '\\w'
 
-class nonAlphanum(Base):
+class nonWord(Base):
     __slosts__ = ()
     @property
     def value(self):

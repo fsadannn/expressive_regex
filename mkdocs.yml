@@ -15,3 +15,7 @@ markdown_extensions:
 
 nav:
     - Home: index.md
+    - API:
+        - Literals: api/literals.md
+        - Boundary Matchers: api/boundary_matchers.md
+        - Quantifiers: api/quantifiers.md

@@ -13,7 +13,7 @@ from .regex_classes import Root
 ### Literals
 from .regex_classes import anyChar, whitespaceChar
 from .regex_classes import nonWhitespaceChar, Digit
-from .regex_classes import nonDigit, Alphanum, nonAlphanum
+from .regex_classes import nonDigit, Word, nonWord
 from .regex_classes import Char, rawChar, String, rawString
 from .regex_classes import Newline, carriageReturn, Tab, Space
 from .regex_classes import Range, anythingButRange
@@ -24,7 +24,7 @@ class BadStatement(Exception):
 
 class ExpressiveRegex:
     __slosts__ = ('_expression', '_hasDefineStart', '_hasDefineEnd', '_flags', '_stack')
-    def __init__(self, mutable=True):
+    def __init__(self, mutable=False):
         self._expression = ""
         self._hasDefineStart = False
         self._hasDefineEnd = False
@@ -141,14 +141,14 @@ class ExpressiveRegex:
         return instance._matchElement(nonDigit)
 
     @property
-    def alphanum(self):
+    def word(self):
         instance = self._instance()
-        return instance._matchElement(Alphanum)
+        return instance._matchElement(Word)
 
     @property
-    def nonAlphanum(self):
+    def nonWord(self):
         instance = self._instance()
-        return instance._matchElement(nonAlphanum)
+        return instance._matchElement(nonWord)
 
     @property
     def newline(self):
