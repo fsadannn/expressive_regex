@@ -54,7 +54,7 @@ publish-token:
 	poetry publish
 
 docs-serve:
-	poetry run mkdocs serve && cp docs/index.md Readme.md --update
+	cp docs/index.md Readme.md --update && poetry run mkdocs serve
 
 docs-deploy:
 	poetry run mkdocs gh-deploy && cp docs/index.md Readme.md --update
