@@ -218,6 +218,6 @@ class ExpressiveRegex:
         self._expression = exp
         return exp
 
-    def toRegex(self)->re.Pattern:
+    def toRegex(self):
         exp = self.toRegexString()
         return re.compile(exp)
