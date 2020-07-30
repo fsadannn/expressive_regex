@@ -8,6 +8,9 @@ from .regex_classes import Capture
 from .regex_classes import OptionalQ
 from .regex_classes import zeroOrMore, zeroOrMoreLazy
 from .regex_classes import oneOrMore, oneOrMoreLazy
+from .regex_classes import Between, betweenLazy
+from .regex_classes import atLeast, upTo
+from .regex_classes import Exactly
 ### Others
 from .regex_classes import Root
 ### Literals
@@ -49,6 +52,8 @@ class ExpressiveRegex:
         if self._currentFrame.quantifier:
             wrap = self._currentFrame.get_qinstance(element)
             self._currentFrame.quantifier = None
+            self._currentFrame._quantifier_args = ()
+            self._currentFrame._quantifier_kwargs = {}
         else:
             wrap = element
         return wrap
@@ -66,11 +71,13 @@ class ExpressiveRegex:
         obj._expression = ""
         return obj
 
-    def _quantifier(self, qclass):
+    def _quantifier(self, qclass, *args, **kwargs):
         if self._currentFrame.quantifier is not None:
             raise BadStatement(f'cannot quantify regular expression with "{str(qclass)}" because it\'s already being quantified with "{self._currentFrame.quantifier}"')
         instance = self._instance()
         instance._currentFrame.quantifier = qclass
+        instance._currentFrame._quantifier_args = args
+        instance._currentFrame._quantifier_kwargs = kwargs
         return instance
 
     ### Quantifiers
@@ -94,6 +101,21 @@ class ExpressiveRegex:
     @property
     def oneOrMoreLazy(self):
         return self._quantifier(oneOrMoreLazy)
+
+    def exactly(self, a: int):
+        return self._quantifier(Exactly, a)
+
+    def between(self, a: int, b: int):
+        return self._quantifier(Between, a, b)
+
+    def betweenLazy(self, a: int, b: int):
+        return self._quantifier(betweenLazy, a, b)
+
+    def atLeast(self, a: int):
+        return self._quantifier(atLeast, a)
+
+    def upTo(self, b: int):
+        return self._quantifier(upTo, b)
 
     ### Grouping
 

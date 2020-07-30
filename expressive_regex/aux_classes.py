@@ -37,19 +37,24 @@ class Stack: # pragma: no cover
 
 
 class StackFrame: # pragma: no cover
-    __slots__ = ('_elements', '_quantifier', '_type')
+    __slots__ = ('_elements', '_quantifier', '_type',
+                 '_quantifier_args', '_quantifier_kwargs')
     def __init__(self, cls):
         self._elements = []
         self._quantifier = None
+        self._quantifier_args = ()
+        self._quantifier_kwargs = {}
         self._type = cls
 
     def get_instance(self):
         return self._type(self._elements)
 
     def get_qinstance(self, instance=None):
+        args = self._quantifier_args
+        kwargs = self._quantifier_kwargs
         if instance:
-            return self._quantifier(instance)
-        return self._quantifier(self.get_instance())
+            return self._quantifier(instance, *args, **kwargs)
+        return self._quantifier(self.get_instance(), *args, **kwargs)
 
     def append(self, element):
         self._elements.append(element)

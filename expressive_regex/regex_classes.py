@@ -15,7 +15,7 @@ def scape_special(values):
     return nvalues
 
 ### Base
-class Base(metaclass=abc.ABCMeta): # pragma: no cover
+class Base(metaclass=abc.ABCMeta):
     __slosts__ = ('_requiresGroup')
     def __init__(self, requiresGroup=False):
         self._requiresGroup = requiresGroup
@@ -25,24 +25,24 @@ class Base(metaclass=abc.ABCMeta): # pragma: no cover
         return self._requiresGroup
 
     @abc.abstractproperty
-    def value(self):
+    def value(self): # pragma: no cover
         raise NotImplementedError
 
-    def copy(self):
+    def copy(self): # pragma: no cover
         return copy.deepcopy(self)
 
-class BaseGroups(Base, metaclass=abc.ABCMeta): # pragma: no cover
+class BaseGroups(Base, metaclass=abc.ABCMeta):
     __slosts__ = ('_elements')
     def __init__(self, elements):
         super().__init__()
         self._elements = elements
 
     @classmethod
-    def element(cls, elements):
+    def element(cls, elements): # pragma: no cover
         return cls(elements)
 
 
-class BaseQuantifier(BaseGroups, metaclass=abc.ABCMeta): # pragma: no cover
+class BaseQuantifier(BaseGroups, metaclass=abc.ABCMeta):
     __slosts__ = ()
     def __init__(self, element):
         assert not isinstance(element, (list, tuple))
@@ -50,8 +50,7 @@ class BaseQuantifier(BaseGroups, metaclass=abc.ABCMeta): # pragma: no cover
 
     def _value(self):
         inner = self._elements.value
-        verif = not(len(inner)==1 or (len(inner)==2 and '\\' in inner))
-        print(verif)
+        verif = not(len(inner) == 1 or (len(inner) == 2 and '\\' in inner))
         grouping = f"(?:{inner})" if self._elements.requiresGroup and verif else inner
         return grouping
 
@@ -98,6 +97,78 @@ class oneOrMoreLazy(BaseQuantifier):
     @property
     def value(self):
         return self._value() + '+?'
+
+class Between(BaseQuantifier):
+    __slosts__ = ('_a', '_b')
+    def __init__(self, element, a: int, b: int):
+        assert isinstance(a, int) and isinstance(b, int), "Between params must be int"
+        assert 0 <= a <= b
+        super().__init__(element)
+        self._a = str(a)
+        self._b = str(b)
+
+    @property
+    def value(self):
+        if self._a == '0':
+            if self._b == '1':
+                return self._value() + '?'
+            return self._value() + '{,' + self._b + '}'
+        return self._value() + '{' + self._a + ',' + self._b + '}'
+
+class betweenLazy(BaseQuantifier):
+    __slosts__ = ('_a', '_b')
+    def __init__(self, element, a: int, b: int):
+        assert isinstance(a, int) and isinstance(b, int), "betweenLazy params must be int"
+        assert 0 <= a <= b
+        super().__init__(element)
+        self._a = str(a)
+        self._b = str(b)
+
+    @property
+    def value(self):
+        return self._value() + '{' + self._a + ',' + self._b + '}?'
+
+class Exactly(BaseQuantifier):
+    __slosts__ = ('_a')
+    def __init__(self, element, a: int):
+        assert isinstance(a, int), "Exactly param must be int"
+        assert a > 0
+        super().__init__(element)
+        self._a = str(a)
+
+    @property
+    def value(self):
+        return self._value() + '{' + self._a + '}'
+
+class atLeast(BaseQuantifier):
+    __slosts__ = ('_a')
+    def __init__(self, element, a: int):
+        assert isinstance(a, int), "Exactly param must be int"
+        assert a >= 0
+        super().__init__(element)
+        self._a = str(a)
+
+    @property
+    def value(self):
+        if self._a == '0':
+            return self._value() + '*'
+        elif self._a == '1':
+            return self._value() + '+'
+        return self._value() + '{' + self._a + ',}'
+
+class upTo(BaseQuantifier):
+    __slosts__ = ('_b')
+    def __init__(self, element, b: int):
+        assert isinstance(b, int), "Exactly param must be int"
+        assert b > 0
+        super().__init__(element)
+        self._b = str(b)
+
+    @property
+    def value(self):
+        if self._b == '1':
+            return self._value() + '?'
+        return self._value() + '{,' + self._b + '}'
 
  ### Literals
 class anyChar(Base):
