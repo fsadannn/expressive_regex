@@ -248,9 +248,105 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Quantifiers
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
     <a href="./" title="Quantifiers" class="md-nav__link md-nav__link--active">
       Quantifiers
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#optional" class="md-nav__link">
+    .optional
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zeroormore" class="md-nav__link">
+    .zeroOrMore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zeroormorelazy" class="md-nav__link">
+    .zeroOrMoreLazy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oneormore" class="md-nav__link">
+    .oneOrMore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oneormorelazy" class="md-nav__link">
+    .oneOrMoreLazy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exactlyn" class="md-nav__link">
+    .exactly(n)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atleastn" class="md-nav__link">
+    .atLeast(n)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uoton" class="md-nav__link">
+    .uoTo(n)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#betweennm" class="md-nav__link">
+    .between(n,m)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#betweenlazynm" class="md-nav__link">
+    .betweenLazy(n,m)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -277,6 +373,86 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#optional" class="md-nav__link">
+    .optional
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zeroormore" class="md-nav__link">
+    .zeroOrMore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zeroormorelazy" class="md-nav__link">
+    .zeroOrMoreLazy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oneormore" class="md-nav__link">
+    .oneOrMore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oneormorelazy" class="md-nav__link">
+    .oneOrMoreLazy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exactlyn" class="md-nav__link">
+    .exactly(n)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#atleastn" class="md-nav__link">
+    .atLeast(n)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uoton" class="md-nav__link">
+    .uoTo(n)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#betweennm" class="md-nav__link">
+    .between(n,m)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#betweenlazynm" class="md-nav__link">
+    .betweenLazy(n,m)
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -296,7 +472,139 @@
                 
                 
                 <h1 id="quantifiers">Quantifiers<a class="headerlink" href="#quantifiers" title="Permanent link">&para;</a></h1>
-<p>Pending</p>
+<h2 id="optional">.optional<a class="headerlink" href="#optional" title="Permanent link">&para;</a></h2>
+<p>Matches <code>0</code> or <code>1</code> of the proceeding expression.</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">optional</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d?&quot;</span>
+</code></pre></div>
+
+
+<h2 id="zeroormore">.zeroOrMore<a class="headerlink" href="#zeroormore" title="Permanent link">&para;</a></h2>
+<p>Matches <code>0</code> or <code>more</code> repetitions of the proceeding expression.</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">zeroOrMore</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d*&quot;</span>
+</code></pre></div>
+
+
+<h2 id="zeroormorelazy">.zeroOrMoreLazy<a class="headerlink" href="#zeroormorelazy" title="Permanent link">&para;</a></h2>
+<p>Matches <code>0</code> or <code>more</code> repetitions of the proceeding expression, but as few times as possible.</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">zeroOrMoreLazy</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d*&quot;</span>
+</code></pre></div>
+
+
+<h2 id="oneormore">.oneOrMore<a class="headerlink" href="#oneormore" title="Permanent link">&para;</a></h2>
+<p>Matches <code>1</code> or <code>more</code> repetitions of the proceeding expression.</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">oneOrMore</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d+&quot;</span>
+</code></pre></div>
+
+
+<h2 id="oneormorelazy">.oneOrMoreLazy<a class="headerlink" href="#oneormorelazy" title="Permanent link">&para;</a></h2>
+<p>Matches <code>1</code> or <code>more</code> repetitions of the proceeding expression, but as few times as possible.</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">oneOrMoreLazy</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d+?&quot;</span>
+</code></pre></div>
+
+
+<h2 id="exactlyn">.exactly(n)<a class="headerlink" href="#exactlyn" title="Permanent link">&para;</a></h2>
+<p>Matches exactly <code>n</code> repetitions of the proceeding expression.</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">exactly</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d</span><span class="si">{4}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+
+<h2 id="atleastn">.atLeast(n)<a class="headerlink" href="#atleastn" title="Permanent link">&para;</a></h2>
+<p>Matches at least <code>n</code> repetitions of the proceeding expression.
+If <code>n</code> is <code>1</code> then is equivalente to <a href="#oneormore">.oneOrMore</a> .
+If <code>n</code> is <code>0</code> then is equivalente to <a href="#zeroormore">.zeroOrMore</a> .</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">atLeast</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d{4,}&quot;</span>
+</code></pre></div>
+
+
+<h2 id="uoton">.uoTo(n)<a class="headerlink" href="#uoton" title="Permanent link">&para;</a></h2>
+<p>Matches up to <code>n</code> repetitions of the proceeding expression.
+If <code>n</code> is <code>1</code> then is equivalente to <a href="#optional">.optional</a> .</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">uoTo</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d{,4}&quot;</span>
+</code></pre></div>
+
+
+<h2 id="betweennm">.between(n,m)<a class="headerlink" href="#betweennm" title="Permanent link">&para;</a></h2>
+<p>Matches between <code>n</code> and <code>m</code> repetitions of the proceeding expression.
+If <code>n</code> is <code>0</code> and <code>m</code> is <code>1</code> then is equivalente to <a href="#optional">.optional</a> .
+If <code>n</code> is <code>0</code> and <code>m</code> &gt; <code>1</code> then is equivalente to <a href="#uoton">.uoTo(m)</a> .</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d{2,4}&quot;</span>
+</code></pre></div>
+
+
+<h2 id="betweenlazynm">.betweenLazy(n,m)<a class="headerlink" href="#betweenlazynm" title="Permanent link">&para;</a></h2>
+<p>Matches between <code>n</code> and <code>m</code> repetitions of the proceeding expression, but as few times as possible.</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d{2,4}?&quot;</span>
+</code></pre></div>
                 
               
               
