@@ -11,6 +11,10 @@ install:
 install-packages:
 	poetry install
 
+.PHONY: install-packages
+update:
+	poetry update
+
 .PHONY: lock
 lock:
 	poetry lock
@@ -25,11 +29,15 @@ clean:
 
 .PHONY: lint
 lint:
-	poetry run pylint ${PROJECT}
+	poetry run pylint ${PROJECT} -f colorized -d missing-module-docstring,missing-class-docstring,missing-function-docstring,invalid-name || poetry run pylint-exit $$?
 
 .PHONY: test-full
 test-full:
-	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml --cov-report=term-missing -v
+	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml --cov-config=.coveragerc -v
+
+.PHONY: coverage
+coverage:
+	poetry run pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-config=.coveragerc --cov-report=html -v
 
 .PHONY: cov
 cov:
@@ -45,6 +53,12 @@ publish-token:
 	poetry config pypi-token.pypi ${POETRY_PYPI_TOKEN_PYPI}
 	poetry publish
 
+docs-serve:
+	cp docs/index.md Readme.md --update && poetry run mkdocs serve
+
+docs-deploy:
+	poetry run mkdocs gh-deploy && cp docs/index.md Readme.md --update
+
 # Below are the commands that will be run INSIDE the development environment, i.e., inside Docker or Travis
 # These commands are NOT supposed to be run by the developer directly, and will fail to do so.
 
@@ -56,9 +70,14 @@ dev-install:
 
 .PHONY: dev-test
 dev-test:
-	poetry run pylint ${PROJECT}
-	python -m pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml -v
+	python -m pylint ${PROJECT} -f colorized -d missing-module-docstring,missing-class-docstring,missing-function-docstring,invalid-name || python -m pylint_exit $$?
+	python -m pytest ${PROJECT} tests --doctest-modules --cov=${PROJECT} --cov-report=xml --cov-config=.coveragerc -v
 
 .PHONY: dev-cov
 dev-cov:
 	python -m codecov
+
+.PHONY: dev-deploy
+dev-deploy:
+	poetry publish --build
+	python -m mkdocs gh-deploy
