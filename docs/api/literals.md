@@ -26,7 +26,7 @@ Matches any whitespace character; equivalent to `[ \t\n\r\f\v]`.
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .whitespaceChar\
 .toRegexString()
 ```
@@ -42,7 +42,7 @@ Matches any non-whitespace character; equivalent to `[^\s]`.
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .nonWhitespaceChar\
 .toRegexString()
 ```
@@ -59,7 +59,7 @@ Matches any non-whitespace character; equivalent to `[0-9]`.
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .digit\
 .toRegexString()
 ```
@@ -75,7 +75,7 @@ SuperExpressive()\
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .nonDigit\
 .toRegexString()
 ```
@@ -93,7 +93,7 @@ In Unicode it will match the range of Unicode alphanumeric characters
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .word\
 .toRegexString()
 ```
@@ -109,7 +109,7 @@ Matches any non alpha-numeric (`a-z, A-Z, 0-9`) characters, excluding `_` as wel
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .nonWord\
 .toRegexString()
 ```
@@ -125,7 +125,7 @@ Matches a `\n` character.
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .newline\
 .toRegexString()
 ```
@@ -141,7 +141,7 @@ Matches a `\r` character.
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .carriageReturn\
 .toRegexString()
 ```
@@ -157,7 +157,7 @@ Matches a `\t` character.
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .tab\
 .toRegexString()
 ```
@@ -173,7 +173,7 @@ Matches a ` ` character.
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .space\
 .toRegexString()
 ```
@@ -189,7 +189,7 @@ Matches the exact char `c` but scape special characters `('\', '.', '^', '$', '|
 **Examples**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .char('a')\
 .toRegexString()
 ```
@@ -199,7 +199,7 @@ SuperExpressive()\
 ```
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .char('$')\
 .toRegexString()
 ```
@@ -215,7 +215,7 @@ Matches the exact char `c` and don't scape special characters.
 **Examples**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .rawChar('a')\
 .toRegexString()
 ```
@@ -225,7 +225,7 @@ SuperExpressive()\
 ```
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .rawChar('$')\
 .toRegexString()
 ```
@@ -241,7 +241,7 @@ Matches the exact string `s` but scape special characters `('\', '.', '^', '$', 
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .string('2$')\
 .toRegexString()
 ```
@@ -250,14 +250,14 @@ SuperExpressive()\
 "2\$"
 ```
 
-## .rawString(c)
+## .rawString(s)
 
 Matches the exact string `s` and don't scape special characters.
 
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .string('2$')\
 .toRegexString()
 ```
@@ -281,7 +281,7 @@ in the exclude set. `a` and `b` must be same type, `a`<=`b` and:
 **Examples**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .range('a','f')\
 .toRegexString()
 ```
@@ -291,7 +291,7 @@ SuperExpressive()\
 ```
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .range('a','f', exclude='bd')\
 .toRegexString()
 ```
@@ -301,7 +301,7 @@ SuperExpressive()\
 ```
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .range('a','f', exclude=['b','d'])\
 .toRegexString()
 ```
@@ -317,8 +317,8 @@ Matches any character, except those that would be captured by the [.range](#rang
 **Examples**
 
 ```Python
-SuperExpressive()\
-.anythingButRange('a','f')\
+ExpressiveRegex()\
+    .anythingButRange('a','f')\
 .toRegexString()
 ```
 
@@ -327,7 +327,7 @@ SuperExpressive()\
 ```
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .anythingButRange('a','f', exclude='bd')\
 .toRegexString()
 ```
@@ -343,7 +343,7 @@ Matches any of the characters in the provided string `chars` and scape special c
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .anyOfChars('abd$')\
 .toRegexString()
 ```
@@ -359,7 +359,7 @@ Matches any character, except any of those in the provided string `chars` and sc
 **Example**
 
 ```Python
-SuperExpressive()\
+ExpressiveRegex()\
 .anythingButChars('abd$')\
 .toRegexString()
 ```

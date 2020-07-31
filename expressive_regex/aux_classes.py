@@ -67,6 +67,10 @@ class StackFrame: # pragma: no cover
     def quantifier(self):
         return self._quantifier
 
+    @property
+    def type(self):
+        return self._type
+
     @quantifier.setter
     def quantifier(self, value):
         self._quantifier = value

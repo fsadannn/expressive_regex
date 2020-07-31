@@ -1,9 +1,11 @@
 import re
 import copy
 from typing import Union, Optional, List
+from .exceptions import BadStatement
 from .aux_classes import Stack, StackFrame
 ### Grouping
-from .regex_classes import Capture
+from .regex_classes import SetOfLiterals
+from .regex_classes import Capture, Group
 ### Quatifiers
 from .regex_classes import OptionalQ
 from .regex_classes import zeroOrMore, zeroOrMoreLazy
@@ -22,8 +24,7 @@ from .regex_classes import Newline, carriageReturn, Tab, Space
 from .regex_classes import Range, anythingButRange
 from .regex_classes import anyOfChars, anythingButChars
 
-class BadStatement(Exception):
-    pass
+
 
 class ExpressiveRegex:
     __slosts__ = ('_expression', '_hasDefineStart', '_hasDefineEnd', '_flags', '_stack')
@@ -74,10 +75,18 @@ class ExpressiveRegex:
     def _quantifier(self, qclass, *args, **kwargs):
         if self._currentFrame.quantifier is not None:
             raise BadStatement(f'cannot quantify regular expression with "{str(qclass)}" because it\'s already being quantified with "{self._currentFrame.quantifier}"')
+        if self._currentFrame.type is SetOfLiterals:
+            raise BadStatement('Quatifiers aren\'t admited inside "setOfLiterals".')
         instance = self._instance()
         instance._currentFrame.quantifier = qclass
         instance._currentFrame._quantifier_args = args
         instance._currentFrame._quantifier_kwargs = kwargs
+        return instance
+
+    def _group(self, gclass):
+        instance = self._instance()
+        newFrame = StackFrame(gclass)
+        instance._stack.push(newFrame)
         return instance
 
     ### Quantifiers
@@ -129,11 +138,16 @@ class ExpressiveRegex:
         return instance
 
     @property
+    def setOfLiterals(self):
+        return self._group(SetOfLiterals)
+
+    @property
     def capture(self):
-        instance = self._instance()
-        newFrame = StackFrame(Capture)
-        instance._stack.push(newFrame)
-        return instance
+        return self._group(Capture)
+
+    @property
+    def group(self):
+        return self._group(Group)
 
     ### Literals
 
@@ -227,12 +241,11 @@ class ExpressiveRegex:
         instance = self._instance()
         return instance._matchElement(anythingButChars, value)
 
-
     ### Build Expression
 
     def toRegexString(self)->String:
         txt = 'Cannot compute the value of a not yet fully specified regex object.\n'
-        txt += f'(Try adding a .end() call to match the "{str(self._currentFrame._type)}")\n'
+        txt += f'(Try adding a .end() call to match the "{str(self._currentFrame.type)}")\n'
         assert len(self._stack) == 1, txt
         if not self._mutable and self._expression:
             return self._expression

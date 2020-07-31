@@ -6,7 +6,7 @@ import random
 
 
 def test_version():
-    assert __version__ == '0.3.0'
+    assert __version__ == '0.4.2'
 
 def test_anyChar():
     res=ExpressiveRegex()\
@@ -295,3 +295,7 @@ def test_anythingButChars():
         .anythingButChars(expression)\
         .toRegexString()
     assert res=='[^'+expression+']'
+
+
+
+

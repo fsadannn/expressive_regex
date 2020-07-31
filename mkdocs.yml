@@ -17,5 +17,6 @@ nav:
     - Home: index.md
     - API:
         - Literals: api/literals.md
-        - Boundary Matchers: api/boundary_matchers.md
         - Quantifiers: api/quantifiers.md
+        - Grouping: api/grouping.md
+        #- Boundary Matchers: api/boundary_matchers.md

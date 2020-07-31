@@ -76,3 +76,8 @@ dev-test:
 .PHONY: dev-cov
 dev-cov:
 	python -m codecov
+
+.PHONY: dev-deploy
+dev-deploy:
+	poetry publish
+	python -m mkdocs gh-deploy

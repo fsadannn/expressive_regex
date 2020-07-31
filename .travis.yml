@@ -21,11 +21,11 @@ before_deploy:
 
 deploy:
   - provider: script
-    script: poetry publish
+    script: make dev-deploy #poetry publish
     on:
       tags: true
 
-  # - provider: script
-  #   script: poetry publish -r testpypi
-  #   on:
-  #     branch: develop
+  - provider: script
+    script: poetry publish -r testpypi
+    on:
+      branch: develop

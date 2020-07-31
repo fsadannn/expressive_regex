@@ -1,6 +1,7 @@
 import abc
 from typing import Union, Optional, List
 import copy
+from .exceptions import BadStatement
 
 specialChars = ['\\', '.', '^', '$', '|', '?', '*', '+', '(', ')', '[', ']', '{', '}', '-']
 specialCharsd = {i:'\\'+i for i in specialChars}
@@ -21,6 +22,18 @@ class Base(metaclass=abc.ABCMeta):
         self._requiresGroup = requiresGroup
 
     @property
+    def isOneCharLiteral(self):
+        return False
+
+    @property
+    def isLiteral(self):
+        return False
+
+    @property
+    def isNegatedLiteral(self):
+        return False
+
+    @property
     def requiresGroup(self):
         return self._requiresGroup
 
@@ -30,6 +43,23 @@ class Base(metaclass=abc.ABCMeta):
 
     def copy(self): # pragma: no cover
         return copy.deepcopy(self)
+
+class Literal(Base, metaclass=abc.ABCMeta):
+    @property
+    def isLiteral(self):
+        return True
+
+class NegatedLiteral(Literal, metaclass=abc.ABCMeta):
+    __slosts__ = ()
+    @property
+    def isNegatedLiteral(self):
+        return True
+
+class OneCharLiteral(Literal, metaclass=abc.ABCMeta):
+    __slosts__ = ()
+    @property
+    def isOneCharLiteral(self):
+        return True
 
 class BaseGroups(Base, metaclass=abc.ABCMeta):
     __slosts__ = ('_elements')
@@ -61,11 +91,38 @@ class Root(BaseGroups):
     def value(self):
         return "".join((i.value for i in self._elements))
 
+class SetOfLiterals(BaseGroups):
+    __slosts__ = ()
+    def __init__(self, elements):
+        super().__init__(elements)
+        # the next line work but is imposible report properly the error make by the user
+        # assert all(map(lambda x: x.isLiteral and not x.isNegatedLiteral ,elements))
+        for x in elements:
+            if not x.isLiteral or x.isNegatedLiteral:
+                raise BadStatement(f'type {type(x)} isn\'t admited inside "setOfLiterals"')
+
+    @property
+    def value(self):
+        res = "["
+        for i in self._elements:
+            value = i.value
+            if not i.isOneCharLiteral:
+                value = value[1:-1]
+            res += value
+        res += "]"
+        return res
+
 class Capture(BaseGroups):
     __slosts__ = ()
     @property
     def value(self):
         return "("+"".join((i.value for i in self._elements))+")"
+
+class Group(BaseGroups):
+    __slosts__ = ()
+    @property
+    def value(self):
+        return "(?:"+"".join((i.value for i in self._elements))+")"
 
 ### Quatifier
 class OptionalQ(BaseQuantifier):
@@ -152,7 +209,7 @@ class atLeast(BaseQuantifier):
     def value(self):
         if self._a == '0':
             return self._value() + '*'
-        elif self._a == '1':
+        if self._a == '1':
             return self._value() + '+'
         return self._value() + '{' + self._a + ',}'
 
@@ -177,43 +234,43 @@ class anyChar(Base):
     def value(self):
         return '.'
 
-class whitespaceChar(Base):
+class whitespaceChar(OneCharLiteral):
     __slosts__ = ()
     @property
     def value(self):
         return '\\s'
 
-class nonWhitespaceChar(Base):
+class nonWhitespaceChar(OneCharLiteral):
     __slosts__ = ()
     @property
     def value(self):
         return '\\S'
 
-class Digit(Base):
+class Digit(OneCharLiteral):
     __slosts__ = ()
     @property
     def value(self):
         return '\\d'
 
-class nonDigit(Base):
+class nonDigit(OneCharLiteral):
     __slosts__ = ()
     @property
     def value(self):
         return '\\D'
 
-class Word(Base):
+class Word(OneCharLiteral):
     __slosts__ = ()
     @property
     def value(self):
         return '\\w'
 
-class nonWord(Base):
+class nonWord(OneCharLiteral):
     __slosts__ = ()
     @property
     def value(self):
         return '\\W'
 
-class Char(Base):
+class Char(OneCharLiteral):
     __slosts__ = tuple(['_value'])
     def __init__(self, value):
         assert isinstance(value, str) and len(value) == 1
@@ -257,51 +314,52 @@ class rawString(Base):
     def value(self):
         return self._values
 
-class Newline(Base):
+class Newline(OneCharLiteral):
     __slosts__ = ()
 
     @property
     def value(self):
         return '\\n'
 
-class carriageReturn(Base):
+class carriageReturn(OneCharLiteral):
     __slosts__ = ()
 
     @property
     def value(self):
         return '\\r'
 
-class Tab(Base):
+class Tab(OneCharLiteral):
     __slosts__ = ()
 
     @property
     def value(self):
         return '\\t'
 
-class Space(Base):
+class Space(OneCharLiteral):
     __slosts__ = ()
 
     @property
     def value(self):
         return ' '
 
-class Range(Base):
+class Range(Literal):
     __slosts__ = ('_begin', '_end', '_exclude', '_expression')
     def __init__(self, begin: Union[str, int], end: Union[str, int],
                  exclude: Optional[Union[List[Union[str, int]], str]]=None):
         super().__init__()
         tb = type(begin)
         # TODO: write explanations of asserts
-        assert (isinstance(begin, str) and len(begin) == 1 and begin.isalpha()) or\
+        assert (isinstance(begin, str) and len(begin) == 1 and begin.isalnum()) or\
                (isinstance(begin, int) and 0 <= begin <= 9)
-        assert (isinstance(end, str) and len(end) == 1 and begin.isalpha()) or\
+        assert (isinstance(end, str) and len(end) == 1 and begin.isalnum()) or\
                (isinstance(end, int) and 0 <= end <= 9)
         assert begin <= end
         assert str(begin).islower() == str(end).islower()
+        assert str(begin).isnumeric() == str(end).isnumeric()
         if exclude:
             if isinstance(exclude, str):
                 exclude = list(exclude)
-            assert all([((isinstance(i, str) and len(i) == 1 and begin.isalpha()) or\
+            assert all([((isinstance(i, str) and len(i) == 1 and begin.isalnum()) or\
                    (isinstance(i, int) and 0 <= i <= 9)) and isinstance(i, tb) for i in exclude])
             exclude = list(sorted(exclude))
         self._begin = begin
@@ -336,23 +394,24 @@ class Range(Base):
     def value(self):
         return self._expression
 
-class anythingButRange(Base):
+class anythingButRange(NegatedLiteral):
     __slosts__ = ('_begin', '_end', '_exclude', '_expression')
     def __init__(self, begin: Union[str, int], end: Union[str, int],
                  exclude: Optional[Union[List[Union[str, int]], str]]=None):
         super().__init__()
         tb = type(begin)
         # TODO: write explanations of asserts
-        assert (isinstance(begin, str) and len(begin) == 1 and begin.isalpha()) or\
+        assert (isinstance(begin, str) and len(begin) == 1 and begin.isalnum()) or\
                (isinstance(begin, int) and 0 <= begin <= 9)
-        assert (isinstance(end, str) and len(end) == 1 and begin.isalpha()) or\
+        assert (isinstance(end, str) and len(end) == 1 and begin.isalnum()) or\
                (isinstance(end, int) and 0 <= end <= 9)
         assert begin <= end
         assert str(begin).islower() == str(end).islower()
+        assert str(begin).isnumeric() == str(end).isnumeric()
         if exclude:
             if isinstance(exclude, str):
                 exclude = list(exclude)
-            assert all([((isinstance(i, str) and len(i) == 1 and begin.isalpha()) or\
+            assert all([((isinstance(i, str) and len(i) == 1 and begin.isalnum()) or\
                    (isinstance(i, int) and 0 <= i <= 9)) and isinstance(i, tb) for i in exclude])
             exclude = list(sorted(exclude))
         self._begin = begin
@@ -388,7 +447,7 @@ class anythingButRange(Base):
         return self._expression
 
 
-class anyOfChars(Base):
+class anyOfChars(Literal):
     __slosts__ = ('_values')
     def __init__(self, values):
         assert isinstance(values, str)
@@ -399,7 +458,7 @@ class anyOfChars(Base):
     def value(self):
         return '['+self._values+']'
 
-class anythingButChars(Base):
+class anythingButChars(NegatedLiteral):
     __slosts__ = ('_values')
     def __init__(self, values):
         assert isinstance(values, str)
