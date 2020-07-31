@@ -26,6 +26,6 @@ deploy:
       tags: true
 
   - provider: script
-    script: poetry publish -r testpypi
+    script: poetry publish -r testpypi --build
     on:
       branch: develop

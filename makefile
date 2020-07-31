@@ -79,5 +79,5 @@ dev-cov:
 
 .PHONY: dev-deploy
 dev-deploy:
-	poetry publish
+	poetry publish --build
 	python -m mkdocs gh-deploy
