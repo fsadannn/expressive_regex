@@ -235,8 +235,8 @@
 
 
   <li class="md-nav__item">
-    <a href="api/boundary_matchers/" title="Boundary Matchers" class="md-nav__link">
-      Boundary Matchers
+    <a href="api/quantifiers/" title="Quantifiers" class="md-nav__link">
+      Quantifiers
     </a>
   </li>
 
@@ -247,8 +247,8 @@
 
 
   <li class="md-nav__item">
-    <a href="api/quantifiers/" title="Quantifiers" class="md-nav__link">
-      Quantifiers
+    <a href="api/grouping/" title="Grouping" class="md-nav__link">
+      Grouping
     </a>
   </li>
 
@@ -297,6 +297,16 @@
 <p><img alt="PyPI - License" src="https://img.shields.io/github/license/fsadannn/expressive_regex"> <img alt="PyPI - License" src="https://travis-ci.org/fsadannn/expressive_regex.svg"> <img alt="Codecov" src="https://img.shields.io/codecov/c/github/fsadannn/expressive_regex.svg"></p>
 <p>This project was made with inspiration from <a href="https://github.com/francisrstokes/super-expressive">Super Expressive for JavaScript</a>.</p>
 <p>Expressive Regex allow you to build regular expressions in almost natural language and without external dependency.</p>
+<p><strong>Example</strong>
+to match a telephone number that can be in the format 555-555-555, 555 555 555 or 555555555.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">one</span><span class="o">.</span><span class="n">digit</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d?&quot;</span>
+</code></pre></div>
                 
               
               
