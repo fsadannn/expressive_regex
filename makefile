@@ -76,7 +76,9 @@ dev-test:
 
 .PHONY: dev-cov
 dev-cov:
-	python -m codecov
+	@if [ ${VERSION} = "0" ]; then\
+		python -m codecov;\
+	fi
 
 .PHONY: dev-deploy
 dev-deploy:
