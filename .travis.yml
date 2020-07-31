@@ -23,8 +23,9 @@ deploy:
   - provider: script
     script: make dev-deploy #poetry publish
     on:
-      tags: true
-      all_branches: true
+      condition: $TRAVIS_TAG = $TRAVIS_BRANCH
+      #tags: true
+
 
   - provider: script
     script: make dev-test-deploy
