@@ -79,5 +79,8 @@ dev-cov:
 
 .PHONY: dev-deploy
 dev-deploy:
+	git config user.name "fsadann";
+    git config user.email "fsadannn@gmail.com";
+    git remote add gh-token "https://${GH_AUTH_TOKEN}@github.com/fsadannn/expressive_regex.git";
 	poetry publish --build
-	python -m mkdocs gh-deploy
+	python -m mkdocs gh-deploy --remote-name gh-token
