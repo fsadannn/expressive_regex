@@ -6,7 +6,7 @@ import random
 
 
 def test_version():
-    assert __version__ == '0.4.2'
+    assert __version__ == '0.4.3'
 
 def test_anyChar():
     res=ExpressiveRegex()\
