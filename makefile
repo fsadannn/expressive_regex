@@ -1,4 +1,5 @@
 PROJECT=expressive_regex
+VERSION=`python -c "import sys; print(1) if sys.version_info.major < 3 or sys.version_info.minor != 7 else print(0)"`
 
 .PHONY: install
 install:
@@ -79,7 +80,21 @@ dev-cov:
 
 .PHONY: dev-deploy
 dev-deploy:
-	git config user.name "fsadann"
+	git config user.name "fsadannn"
+	git config user.email "fsadannn@gmail.com"
     git remote add gh-token "https://${GH_AUTH_TOKEN}@github.com/fsadannn/expressive_regex.git"
-	poetry publish --build
-	python -m mkdocs gh-deploy --remote-name gh-token
+	@if [ ${VERSION} = "0" ]; then\
+        poetry publish --build;\
+    fi
+	@if [ ${VERSION} = "0" ]; then\
+        python -m mkdocs gh-deploy --remote-name gh-token;\
+    fi
+
+.PHONY: dev-test-deploy
+dev-test-deploy:
+	git config user.name "fsadannn"
+	git config user.email "fsadannn@gmail.com"
+    #git remote add gh-token "https://${GH_AUTH_TOKEN}@github.com/fsadannn/expressive_regex.git"
+	@if [ ${VERSION} = "0" ]; then\
+        poetry publish -r testpypi --build;\
+    fi
