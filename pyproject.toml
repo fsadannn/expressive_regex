@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "expressive_regex"
-version = "0.4.3"
+version = "0.4.4"
 description = ""
 authors = ["fsadannn <fsadannn@gmail.com>"]
 license = "MIT"
