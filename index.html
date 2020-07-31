@@ -300,12 +300,19 @@
 <p><strong>Example</strong>
 to match a telephone number that can be in the format 555-555-555, 555 555 555 or 555555555.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
-<span class="o">.</span><span class="n">one</span><span class="o">.</span><span class="n">digit</span>\
+    <span class="o">.</span><span class="n">exactly</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">group</span>\
+        <span class="o">.</span><span class="n">oneOrMore</span><span class="o">.</span><span class="n">digit</span>\
+        <span class="o">.</span><span class="n">optional</span><span class="o">.</span><span class="n">setOfLiterals</span>\
+            <span class="o">.</span><span class="n">char</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">whitespaceChar</span>\
+        <span class="o">.</span><span class="n">end</span><span class="p">()</span>\
+    <span class="o">.</span><span class="n">end</span><span class="p">()</span>\
+    <span class="o">.</span><span class="n">oneOrMore</span><span class="o">.</span><span class="n">digit</span>\
 <span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
 </code></pre></div>
 
 
-<div class="codehilite"><pre><span></span><code><span class="s2">&quot;\d?&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;(?:\d+[\-\s]?)</span><span class="si">{2}</span><span class="s2">\d+&quot;</span>
 </code></pre></div>
                 
               

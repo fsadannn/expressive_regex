@@ -275,6 +275,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#group" class="md-nav__link">
+    .group
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#capture" class="md-nav__link">
     .capture
   </a>
@@ -339,6 +346,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#group" class="md-nav__link">
+    .group
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#capture" class="md-nav__link">
     .capture
   </a>
@@ -386,15 +400,32 @@
                 
                 
                 <h1 id="grouping">Grouping<a class="headerlink" href="#grouping" title="Permanent link">&para;</a></h1>
+<h2 id="group">.group<a class="headerlink" href="#group" title="Permanent link">&para;</a></h2>
+<p>Creates a non-capturing group of the proceeding elements. Needs to be finalised with <code>.end()</code>.</p>
+<p><strong>Example</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+    <span class="o">.</span><span class="n">group</span>\
+        <span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="s1">&#39;XXX&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">end</span><span class="p">()</span>\
+<span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="p">([</span><span class="n">a</span><span class="o">-</span><span class="n">f</span><span class="p">][</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="n">XXX</span><span class="p">)</span>
+</code></pre></div>
+
+
 <h2 id="capture">.capture<a class="headerlink" href="#capture" title="Permanent link">&para;</a></h2>
 <p>Creates a capture group for the proceeding elements. Needs to be finalised with <code>.end()</code>.</p>
 <p><strong>Example</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>
-<span class="o">.</span><span class="n">capture</span>\
-<span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="s1">&#39;XXX&#39;</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">end</span><span class="p">()</span>\
+<div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
+    <span class="o">.</span><span class="n">capture</span>\
+        <span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="s1">&#39;XXX&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">end</span><span class="p">()</span>\
 <span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
 </code></pre></div>
 
@@ -412,11 +443,11 @@ Inside this statement only is allowed <a href="../literals/#literals">Literals</
 <a href="../literals/#anythingbutcharschars">.anythingButChars</a></p>
 <p><strong>Example</strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>\
-<span class="o">.</span><span class="n">setOfLiterals</span>\
-<span class="o">.</span><span class="n">char</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">anyOfChars</span><span class="p">(</span><span class="s1">&#39;dfs&#39;</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">end</span><span class="p">()</span>\
+    <span class="o">.</span><span class="n">setOfLiterals</span>\
+        <span class="o">.</span><span class="n">char</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">anyOfChars</span><span class="p">(</span><span class="s1">&#39;dfs&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">end</span><span class="p">()</span>\
 <span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
 </code></pre></div>
 
@@ -429,15 +460,15 @@ Inside this statement only is allowed <a href="../literals/#literals">Literals</
 <p>Signifies the end of a ExpressiveRegex grouping.</p>
 <p><strong>Example</strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">ExpressiveRegex</span><span class="p">()</span>
-<span class="o">.</span><span class="n">capture</span>\
-<span class="o">.</span><span class="n">setOfLiterals</span>\
-<span class="o">.</span><span class="n">char</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">anyOfChars</span><span class="p">(</span><span class="s1">&#39;dfs&#39;</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">end</span><span class="p">()</span>\
-<span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="s1">&#39;XXX&#39;</span><span class="p">)</span>\
-<span class="o">.</span><span class="n">end</span><span class="p">()</span>\
+    <span class="o">.</span><span class="n">capture</span>\
+        <span class="o">.</span><span class="n">setOfLiterals</span>\
+            <span class="o">.</span><span class="n">char</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>\
+            <span class="o">.</span><span class="n">anyOfChars</span><span class="p">(</span><span class="s1">&#39;dfs&#39;</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">end</span><span class="p">()</span>\
+        <span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="s1">&#39;XXX&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">end</span><span class="p">()</span>\
 <span class="o">.</span><span class="n">toRegexString</span><span class="p">()</span>
 </code></pre></div>
 
